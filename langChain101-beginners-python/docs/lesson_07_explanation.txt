@@ -1,0 +1,54 @@
+Lesson 07: Plan and Execute Agents
+
+IMPORTS AND SETUP
+```python
+from langchain_openai import ChatOpenAI, OpenAI
+from langchain_community.utilities import SerpAPIWrapper
+from langchain_experimental.plan_and_execute import PlanAndExecute, load_agent_executor, load_chat_planner
+from langchain_experimental.tools.python import PythonAstREPLTool
+from langchain.agents.tools import Tool
+from langchain.chains.llm_math.base import LLMMathChain
+from langchain_core.tools import Tool as CoreTool
+```
+
+PURPOSE:
+This lesson introduces the Plan and Execute framework, which allows agents to break down complex tasks into planned steps and execute them systematically.
+
+KEY COMPONENTS:
+
+1. Tool Setup:
+   ```python
+   tools = [
+       CoreTool(name="Search", func=search.run, description="..."),
+       CoreTool(name="Calculator", func=llm_math_chain.run, description="...")
+   ]
+   ```
+
+2. Planner and Executor Setup:
+   ```python
+   planner = load_chat_planner(chat_model)
+   executor = load_agent_executor(chat_model, tools, verbose=True)
+   agent = PlanAndExecute(planner=planner, executor=executor, verbose=True)
+   ```
+
+3. Environment Setup:
+   ```python
+   os.environ["OPENAI_API_KEY"] = "your-openai-key"
+   os.environ["SERPAPI_API_KEY"] = "your-serpapi-key"
+   ```
+
+CODE EXPLANATION:
+- Uses both OpenAI and ChatOpenAI models
+- Incorporates search (SerpAPI) and calculator tools
+- Planner breaks down complex tasks
+- Executor carries out the planned steps
+- Verbose output shows planning and execution process
+
+EXAMPLE USAGE:
+```python
+result = agent.run(
+    "Where will the next summer olympics be hosted? What is the population of that country raised to the 0.43 power?"
+)
+```
+
+This lesson demonstrates how to handle complex, multi-step queries by breaking them down into planned steps and executing them systematically.

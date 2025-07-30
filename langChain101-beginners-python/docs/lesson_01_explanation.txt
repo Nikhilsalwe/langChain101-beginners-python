@@ -1,0 +1,23 @@
+Lesson 01: Setting Up LangChain
+
+IMPORTS AND SETUP
+This lesson focuses on the initial setup of LangChain and its dependencies.
+
+Required Installations:
+1. langchain-community
+2. langchain
+3. openai
+
+Commands Used:
+```
+python3 -m pip install langchain-community
+python3 -m pip install langchain langchain-community openai
+```
+
+PURPOSE:
+This lesson serves as the foundation for setting up the LangChain environment. It ensures all necessary packages are installed before proceeding with more complex operations.
+
+EXPLANATION:
+- The lesson demonstrates the basic requirements for working with LangChain
+- Shows the proper way to install both core LangChain and its community components
+- Includes OpenAI installation as it will be used as the primary LLM provider

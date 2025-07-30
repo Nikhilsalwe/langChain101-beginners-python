@@ -1,0 +1,41 @@
+Lesson 06: Human Input Tool
+
+IMPORTS AND SETUP
+```python
+from langchain.llms import OpenAI
+from langchain.agents import agent, initialize_agent, load_tools
+```
+
+PURPOSE:
+This lesson demonstrates how to incorporate human input into the agent's workflow, allowing for interactive problem-solving sessions.
+
+KEY COMPONENTS:
+
+1. Human Tool Loading:
+   ```python
+   tools = load_tools(["human"])
+   ```
+
+2. Agent Setup:
+   ```python
+   agent = initialize_agent(tools, llms, agent="zero-shot-react-description", verbose=True)
+   ```
+
+CODE EXPLANATION:
+- The human tool allows the agent to ask questions to the user
+- Uses zero-shot-react-description agent type
+- verbose=True shows the reasoning process
+- Agent can interact with user when it needs additional information
+
+EXAMPLE USAGE:
+```python
+prompt = "what is the surname name of my friend Swastik?"
+agent.run(prompt)
+```
+
+The agent will:
+1. Recognize it doesn't have the information
+2. Use the human tool to ask the user
+3. Process the response and provide an answer
+
+This lesson shows how to create interactive AI systems that can request clarification or additional information from users when needed.

@@ -1,0 +1,42 @@
+Lesson 03: Prompt Templates and Chains
+
+IMPORTS AND SETUP
+```python
+from langchain_core.prompts import PromptTemplate
+from langchain.chains import LLMChain
+from langchain_community.llms import OpenAI
+```
+
+PURPOSE:
+This lesson introduces prompt templates and chains, demonstrating how to create structured, reusable prompts and chain them with language models.
+
+KEY COMPONENTS:
+
+1. PromptTemplate:
+   - Creates a reusable template with variables
+   - Allows for consistent prompt structure
+   ```python
+   template = "You are a naming consultant for new companies. What is a good name and suggest 5 name for a company that makes {product}?"
+   prompt = PromptTemplate.from_template(template)
+   ```
+
+2. LLMChain:
+   - Combines a prompt template with an LLM
+   - Creates a reusable chain for similar queries
+   ```python
+   chain = LLMChain(llm=llm, prompt=prompt)
+   ```
+
+CODE EXPLANATION:
+- PromptTemplate.from_template() creates a template with variables (marked by {})
+- Variables can be filled in at runtime
+- LLMChain combines the template and LLM into a single, reusable unit
+- chain.run() executes the chain with provided variables
+
+EXAMPLE USAGE:
+```python
+# Run the chain with a specific product
+print(chain.run("colorful socks"))
+```
+
+This lesson shows how to create more structured and reusable prompts, making it easier to maintain consistency in AI interactions and reduce repetitive code.

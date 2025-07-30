@@ -1,0 +1,46 @@
+Lesson 04: Sequential Chains
+
+IMPORTS AND SETUP
+```python
+from langchain_core.prompts import PromptTemplate
+from langchain.chains import LLMChain, SimpleSequentialChain
+from langchain_community.llms import OpenAI
+```
+
+PURPOSE:
+This lesson introduces sequential chains, showing how to chain multiple LLM operations together where the output of one operation becomes the input for the next.
+
+KEY COMPONENTS:
+
+1. First Chain (Company Name Generator):
+   ```python
+   template = "what is a good name for a company that makes {product}?"
+   first_prompt = PromptTemplate.from_template(template)
+   first_chain = LLMChain(llm=llm, prompt=first_prompt)
+   ```
+
+2. Second Chain (Catchphrase Generator):
+   ```python
+   second_template = "write a catch phrase for the following company: {company_name}"
+   second_prompt = PromptTemplate.from_template(second_template)
+   second_chain = LLMChain(llm=llm, prompt=second_prompt)
+   ```
+
+3. Sequential Chain:
+   ```python
+   overall_chain = SimpleSequentialChain(chains=[first_chain, second_chain], verbose=True)
+   ```
+
+CODE EXPLANATION:
+- SimpleSequentialChain connects multiple chains
+- Output of first chain becomes input for second chain
+- verbose=True shows intermediate results
+- temperature=0 used for more consistent results
+- Each chain in the sequence performs a specific task
+
+EXAMPLE USAGE:
+```python
+catchPhrase = overall_chain.run("colorful socks")
+```
+
+This lesson demonstrates how to create more complex AI workflows by chaining together multiple operations, where each step builds upon the results of the previous step.

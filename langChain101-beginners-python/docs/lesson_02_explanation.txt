@@ -1,0 +1,43 @@
+Lesson 02: Basic LLM Usage
+
+IMPORTS AND SETUP
+```python
+from langchain_community.llms import OpenAI
+```
+
+PURPOSE:
+This lesson introduces the basic usage of LangChain with OpenAI's language model, demonstrating how to make simple queries and generate multiple responses.
+
+KEY COMPONENTS:
+1. OpenAI LLM Initialization:
+   - Creates an LLM instance with temperature=0.9 (higher creativity)
+   ```python
+   llm = OpenAI(temperature=0.9)
+   ```
+
+2. Single Response Generation:
+   - Uses .invoke() method for single responses
+   - Example prompt: "What would a good company name for a company that makes colorful socks?"
+
+3. Multiple Response Generation:
+   - Uses .generate() method to create multiple responses
+   - Generates 5 different company names in one call
+
+CODE EXPLANATION:
+- temperature=0.9 means responses will be more creative/varied
+- .invoke() is the new method for getting single responses (replacing direct function calls)
+- .generate() allows batch processing of prompts
+- Results are accessed through .generations property of the result object
+
+EXAMPLE USAGE:
+```python
+# Single response
+response = llm.invoke(prompt)
+
+# Multiple responses
+result = llm.generate([prompt]*5)
+for company_name in result.generations:
+    print(company_name[0].text)
+```
+
+This lesson demonstrates the fundamental interaction with language models through LangChain, showing both single and batch processing capabilities.
