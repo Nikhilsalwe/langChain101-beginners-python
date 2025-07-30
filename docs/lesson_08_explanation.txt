@@ -1,0 +1,54 @@
+Lesson 08: Document Question-Answering
+
+IMPORTS AND SETUP
+```python
+from langchain_community.llms import OpenAI
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain.chains import RetrievalQA
+from langchain_community.vectorstores import Chroma
+from langchain.document_loaders import TextLoader
+```
+
+PURPOSE:
+This lesson demonstrates how to create a question-answering system that can process and answer questions about large documents by using document loading, splitting, embedding, and retrieval techniques.
+
+KEY COMPONENTS:
+
+1. Document Loading:
+   ```python
+   loader = TextLoader("./state-of-union.txt")
+   documents = loader.load()
+   ```
+
+2. Text Splitting:
+   ```python
+   text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+   texts = text_splitter.split_documents(documents)
+   ```
+
+3. Vector Store Creation:
+   ```python
+   embeddings = OpenAIEmbeddings()
+   store = Chroma.from_documents(texts, embeddings, collection_name="state-of-union")
+   ```
+
+4. QA Chain Setup:
+   ```python
+   chain = RetrievalQA.from_chain_type(llm=llm, retriever=store.as_retriever())
+   ```
+
+CODE EXPLANATION:
+- Loads and processes text documents
+- Splits text into manageable chunks
+- Creates embeddings for efficient searching
+- Uses Chroma as vector store
+- Creates a QA chain for answering questions
+
+EXAMPLE USAGE:
+```python
+print("Answer : ", chain.run("What did biden talk about Ohio?"))
+print("Answer 2: ", chain.run("What did biden talk about semi conductor factories where will those build?"))
+```
+
+This lesson shows how to create a sophisticated document QA system that can understand and answer questions about specific documents by combining various LangChain components.

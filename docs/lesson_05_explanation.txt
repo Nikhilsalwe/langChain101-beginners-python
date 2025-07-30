@@ -1,0 +1,47 @@
+Lesson 05: Agents and Tools
+
+IMPORTS AND SETUP
+```python
+from langchain import llms
+from langchain.llms import OpenAI
+from langchain.agents import agent, get_all_tool_names, initialize_agent, load_tools
+```
+
+PURPOSE:
+This lesson introduces LangChain agents and tools, demonstrating how to combine different tools (Wikipedia and Calculator) to solve complex queries that require multiple steps.
+
+KEY COMPONENTS:
+
+1. Tool Loading:
+   ```python
+   tools = load_tools(["wikipedia", "llm-math"], llm=llms)
+   ```
+
+2. Agent Initialization:
+   ```python
+   agent = initialize_agent(tools, llms, agent="zero-shot-react-description", verbose=True)
+   ```
+
+3. Complex Query Processing:
+   - The agent can break down complex queries into steps
+   - Uses different tools as needed
+   - Shows reasoning process with verbose output
+
+CODE EXPLANATION:
+- load_tools() loads specific tools (Wikipedia and Calculator)
+- initialize_agent() creates an agent that can use these tools
+- "zero-shot-react-description" agent type can decide which tool to use
+- verbose=True shows the agent's reasoning process
+
+EXAMPLE USAGE:
+```python
+prompt = "what was the 3rd president of the United States born? what is that year raised to the power of 3?"
+agent.run(prompt)
+```
+
+The agent:
+1. Uses Wikipedia to find Jefferson's birth year
+2. Uses Calculator to compute the mathematical operation
+3. Shows step-by-step reasoning
+
+This lesson demonstrates how agents can combine different tools to solve complex queries that require multiple steps and different types of operations.
